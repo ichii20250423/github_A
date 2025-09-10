@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キーフレームサンプル</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .wrapper {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #222;
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .text {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            font-size: 18px;
+            font-family: sans-serif;
+        }
+
+        /* 擬似要素でアニメーション用のレイヤー */
+        .wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #ff4d4d, #4d94ff);
+            transition: none;
+        }
+
+        .wrapper:hover::before {
+            animation: slideColor 1.5s forwards;
+        }
+
+        @keyframes slideColor {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="text">animation</div>
+    </div>
+</body>
+
+</html>

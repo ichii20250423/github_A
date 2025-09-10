@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像加工のテスト</title>
+</head>
+
+<body>
+    <div style="width: 100vw; overflow-x: hidden;">
+        <table width="100%">
+            <!-- 1行目 -->
+            <tr>
+                <td width="33.33%"><img src="にいた.jpg" alt="左画像" width="100%" style="filter: blur(5px);"></td>
+                <td width="33.33%"><img src="にいた.jpg" alt="中央画像" width="100%" style="filter: brightness(1.5);"></td>
+                <td width="33.33%"><img src="にいた.jpg" alt="右画像" width="100%" style="filter: contrast(200%);"></td>
+            </tr>
+            <!-- 2行目 -->
+            <tr>
+                <td width="33.33%"><img src="にいた.jpg" alt="左画像" width="100%" style="filter: grayscale(100%);"></td>
+                <td width="33.33%"><img src="にいた.jpg" alt="中央画像" width="100%" style="filter: hue-rotate(90deg);"></td>
+                <td width="33.33%"><img src="にいた.jpg" alt="右画像" width="100%" style="filter: invert(100%);"></td>
+            </tr>
+            <!-- 3行目 -->
+            <tr>
+                <td width="33.33%"><img src="にいた.jpg" alt="左画像" width="100%" style="filter: opacity(50%);"></td>
+                <td width="33.33%"><img src="にいた.jpg" alt="中央画像" width="100%" style="filter: saturate(200%);"></td>
+                <td width="33.33%"><img src="にいた.jpg" alt="右画像" width="100%" style="filter: sepia(100%);"></td>
+            </tr>
+        </table>
+    </div>
+
+</html>

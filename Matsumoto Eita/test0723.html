@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>まとめ</title>
+
+    <style>
+        .hover-filter img {
+            transition: filter 0.3s;
+        }
+
+        .blur:hover img {
+            filter: blur(5px);
+        }
+
+        .brightness:hover img {
+            filter: brightness(1.5);
+        }
+
+        .contrast:hover img {
+            filter: contrast(200%);
+        }
+
+        .grayscale:hover img {
+            filter: grayscale(100%);
+        }
+
+        .hue:hover img {
+            filter: hue-rotate(90deg);
+        }
+
+        .invert:hover img {
+            filter: invert(100%);
+        }
+
+        .opacity:hover img {
+            filter: opacity(50%);
+        }
+
+        .saturate:hover img {
+            filter: saturate(200%);
+        }
+
+        .sepia:hover img {
+            filter: sepia(100%);
+        }
+    </style>
+</head>
+
+<body>
+    <table width="100%">
+        <!-- 1行目 -->
+        <tr>
+            <td width="33.33%" class="hover-filter blur">
+                <img src="にいた.jpg" alt="左画像" width="100%">
+                <p>blur (ぼかし)</p>
+            </td>
+            <td width="33.33%" class="hover-filter brightness">
+                <img src="にいた.jpg" alt="中央画像" width="100%">
+                <p>brightness (明度)</p>
+            </td>
+            <td width="33.33%" class="hover-filter contrast">
+                <img src="にいた.jpg" alt="右画像" width="100%">
+                <p>contrast (コントラスト)</p>
+            </td>
+        </tr>
+        <!-- 2行目 -->
+        <tr>
+            <td width="33.33%" class="hover-filter grayscale">
+                <img src="にいた.jpg" alt="左画像" width="100%">
+                <p>grayscale (グレースケール)</p>
+            </td>
+            <td width="33.33%" class="hover-filter hue">
+                <img src="にいた.jpg" alt="中央画像" width="100%">
+                <p>hue-rotate (色相回転)</p>
+            </td>
+            <td width="33.33%" class="hover-filter invert">
+                <img src="にいた.jpg" alt="右画像" width="100%">
+                <p>invert (反転)</p>
+            </td>
+        </tr>
+        <!-- 3行目 -->
+        <tr>
+            <td width="33.33%" class="hover-filter opacity">
+                <img src="にいた.jpg" alt="左画像" width="100%">
+                <p>opacity (不透明度)</p>
+            </td>
+            <td width="33.33%" class="hover-filter saturate">
+                <img src="にいた.jpg" alt="中央画像" width="100%">
+                <p>saturate (彩度)</p>
+            </td>
+            <td width="33.33%" class="hover-filter sepia">
+                <img src="にいた.jpg" alt="右画像" width="100%">
+                <p>sepia (セピア調)</p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
