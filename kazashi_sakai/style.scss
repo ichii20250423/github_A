@@ -4,6 +4,9 @@ body {
     header {
         width: 100%;
         padding: 15px;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
 
         .logo {
             text-align: center;
