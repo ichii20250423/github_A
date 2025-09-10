@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フィルター効果サンプルと画像比較</title>
+    <!--cssの内部参照：ヘッダ埋込-->
+    <style>  /*画面に対するスタイル*/
+
+    div
+    {
+        width: 320px;
+        height:auto;
+        float: left;
+        margin: 3px;
+        position: relative;
+        border: #ddd 3px solid;
+    }
+
+    img{
+        width:100%;
+        height: auto;
+    }
+
+    .original img{
+        filter: none;
+    }
+    .blurA img{
+        filter:blur(5px);
+    }
+    .blurB img{
+        filter:blur(10px);
+    }
+    .blurC img{
+        filter:blur(30px);
+    }
+    .brightnessA img{
+        filter:brightness(10%);
+    }
+    .brightnessB img{
+        filter:brightness(50%);
+    }
+    .brightnessC img{
+        filter:brightness(200%);
+    }
+    .contrastA img{
+        filter:contrast(0%);
+    }
+    .contrastB img{
+        filter:contrast(50%);
+    }
+    .contrastC img{
+        filter:contrast(200%);
+    }
+    /*drop-shadow(offsetX offsetY blur color)*/
+    .drop-shadowA img{
+        filter:drop-shadow(10px 0px 0px red);
+    }
+    .drop-shadowB img{
+        filter:drop-shadow(10px 10px 0px blue);
+    }
+    .drop-shadowC img{
+        filter:drop-shadow(-10px -10px 10px black);
+    }
+    .grayscaleA img{
+        filter:grayscale(50%);
+    }
+    .grayscaleB img{
+        filter:grayscale(100%);
+    }
+    .grayscaleC img{
+        filter:grayscale(200%);
+    }
+    .hue-rotateA img{
+        filter:hue-rotate(90deg);
+    }
+    .hue-rotateB img{
+        filter:hue-rotate(180deg);
+    }
+    .hue-rotateC img{
+        filter:hue-rotate(270deg);
+    }
+    .invertA img{
+        filter:invert(50%);
+    }
+    .invertB img{
+        filter:invert(100%);
+    }
+    .invertC img{
+        filter:invert(200%);
+    }
+    .saturateA img{
+        filter:saturate(0%);
+    }.saturateB img{
+        filter:saturate(50%);
+    }.saturateC img{
+        filter:saturate(200%);
+    }
+    .opacityA img{
+        filter:opacity(10%);
+    }
+    .opacityB img{
+        filter:opacity(50%);
+    }.opacityC img{
+        filter:opacity(200%);
+    }
+    .sepiaA img{
+        filter:sepia(50%);
+    }
+    .sepiaB img{
+        filter:sepia(100%);
+    }.sepiaC img{
+        filter:sepia(200%);
+    }
+
+    </style>
+    <style>
+        /* 画像比較用のスタイル */
+        .compare-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            margin: 40px auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        .compare-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+        .img-comp-container {
+            position: relative;
+            height: 500px; /* 適宜調整してください */
+            overflow: hidden;
+        }
+        
+        .img-comp-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .img-comp-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .img-comp-slider {
+            position: absolute;
+            z-index: 9;
+            cursor: ew-resize;
+            width: 40px;
+            height: 40px;
+            background-color: #2196F3;
+            opacity: 0.7;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 50%;
+            margin-left: -20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .img-comp-slider:before,
+        .img-comp-slider:after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background-color: white;
+        }
+        
+        .img-comp-slider:before {
+            left: 8px;
+        }
+        
+        .img-comp-slider:after {
+            right: 8px;
+        }
+        
+        .compare-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .compare-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .compare-btn:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="compare-container">
+        <h2 style="text-align: center;">画像比較ツール</h2>
+        <div class="img-comp-container">
+            <div class="img-comp-img">
+                <img id="originalImage" src="image/test_bg.png" alt="オリジナル画像">
+            </div>
+            <div class="img-comp-img" style="width: 50%;">
+                <img id="filteredImage" src="image/test_bg.png" alt="フィルター適用後">
+            </div>
+            <div class="img-comp-slider" id="slider">↔</div>
+        </div>
+        <div class="compare-controls">
+            <button class="compare-btn" onclick="applyFilter('none')">リセット</button>
+            <button class="compare-btn" onclick="applyFilter('grayscale(100%)')">モノクロ</button>
+            <button class="compare-btn" onclick="applyFilter('sepia(100%)')">セピア</button>
+            <button class="compare-btn" onclick="applyFilter('hue-rotate(90deg)')">色相変更</button>
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            <button class="compare-btn" onclick="document.getElementById('imageUpload').click()">画像をアップロード</button>
+        </div>
+    </div>
+
+    <!--画像の表示-->
+    <div class="original">  <!--cssでのクラス名"original"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    ガウシアンぼかし : blur(0px)<br>
+    </div>
+
+    <div class="blurA">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    ガウシアンぼかし : blur(5px)<br>
+    </div>
+
+    <div class="blurB">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    ガウシアンぼかし : blur(10px)<br>
+    </div>
+    
+    <div class="blurC">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    ガウシアンぼかし : blur(30px)<br>
+    </div>
+
+    <div class="original">  <!--cssでのクラス名"original"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    明るさ : brightness(100%)<br>
+    </div>
+
+    <div class="brightnessA">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    明るさ : brightness(10%)<br>
+    </div>
+
+    <div class="brightnessB">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    明るさ : brightness(50%)<br>
+    </div>
+    
+    <div class="brightnessC">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    明るさ : brightness(200%)<br>
+    </div>
+
+    <div class="original">  <!--cssでのクラス名"original"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    コントラスト : contrast(100%)<br>
+    </div>
+
+    <div class="contrastA">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    コントラスト : contrast(0%)<br>
+    </div>
+
+    <div class="contrastB">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    コントラスト : contrast(50%)<br>
+    </div>
+    
+    <div class="contrastC">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    コントラスト : contrast(200%)<br>
+    </div>
+
+    <div class="original">  <!--cssでのクラス名"original"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    コントラスト : drop-shadow(0px 0px 0px)<br>
+    </div>
+
+    <div class="drop-shadowA">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    ドロップシャドウ : drop-shadow(10px 0px 0px red)<br>
+    </div>
+
+    <div class="drop-shadowB">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    ドロップシャドウ : drop-shadow(10px 10px 0px blue)<br>
+    </div>
+    
+    <div class="drop-shadowC">  <!--cssでのクラス名"blur"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    ドロップシャドウ : drop-shadow(-10px -10px 10px black)<br>
+    </div>
+
+    <div class="original">  <!--cssでのクラス名"original"-->
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    グレースケール : grayscale(0%)<br>
+    </div>
+
+    <div class="grayscaleA">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    グレースケール : grayscale(50%)<br>
+    </div>
+
+    <div class="grayscaleB">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    グレースケール : grayscale(100%)<br>
+    </div>
+    
+    <div class="grayscaleC">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    グレースケール : grayscale(200%)<br>
+    </div>
+
+    <div class="original">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    色相 : hue-rotate(0deg)<br>
+    </div>
+
+    <div class="hue-rotateA">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    色相 : hue-rotate(90deg)<br>
+    </div>
+
+    <div class="hue-rotateB">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    色相 : hue-rotate(180deg)<br>
+    </div>
+    
+    <div class="hue-rotateC">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    色相 : hue-rotate(180deg)<br>
+    </div>
+
+    <div class="original">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    反転 : invert(0%)<br>
+    </div>
+
+    <div class="invertA">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    反転 : invert(50%)<br>
+    </div>
+
+    <div class="invertB">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    反転 : invert(100%)<br>
+    </div>
+    <div class="invertC">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    反転 : invert(200%)<br>
+    </div>
+
+    <div class="original">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    半透明 : invert(100%)<br>
+    </div>
+
+    <div class="opacityA">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    半透明 : opacity(10%)<br>
+    </div>
+
+    <div class="opacityB">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    半透明 : opacity(50%)<br>
+    </div>
+    <div class="opacityC">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    半透明 : opacity(200%)<br>
+    </div>
+
+    <div class="original">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    彩度 : saturate(100%)<br>
+    </div>
+
+    <div class="saturateA">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    彩度 : saturate(0%)<br>
+    </div>
+
+    <div class="saturateB">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    彩度 : saturate(50%)<br>
+    </div>
+    <div class="saturateC">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    彩度 : saturate(200%)<br>
+    </div>
+
+    <div class="original">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    セピア : sepia(0%)<br>
+    </div>
+
+    <div class="sepiaA">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    セピア : sepia(50%)<br>
+    </div>
+
+    <div class="sepiaB">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    セピア : sepia(100%)<br>
+    </div>
+    <div class="sepiaC">
+    <img src="image/test_bg.png" style="width: 300px; height: auto;"><br>
+    セピア : sepia(200%)<br>
+    </div>
+
+
+
+    <script>
+        // スライダーの機能
+        const slider = document.getElementById('slider');
+        const container = document.querySelector('.img-comp-container');
+        const filteredImg = document.querySelector('.img-comp-img:last-child');
+        let isDragging = false;
+        
+        // スライダーのドラッグ開始
+        slider.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+        
+        // ドラッグ中の処理
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            const containerRect = container.getBoundingClientRect();
+            let x = e.clientX - containerRect.left;
+            
+            // スライダーの位置を制限
+            x = Math.min(containerRect.width - 10, Math.max(10, x));
+            
+            // スライダーと画像の位置を更新
+            const percent = (x / containerRect.width) * 100;
+            filteredImg.style.width = `${100 - percent}%`;
+            slider.style.left = `${percent}%`;
+            slider.style.marginLeft = '-20px';
+        });
+        
+        // ドラッグ終了
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+        
+        // タッチ対応
+        slider.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            const containerRect = container.getBoundingClientRect();
+            let x = e.touches[0].clientX - containerRect.left;
+            
+            // スライダーの位置を制限
+            x = Math.min(containerRect.width - 10, Math.max(10, x));
+            
+            // スライダーと画像の位置を更新
+            const percent = (x / containerRect.width) * 100;
+            filteredImg.style.width = `${100 - percent}%`;
+            slider.style.left = `${percent}%`;
+            slider.style.marginLeft = '-20px';
+        });
+        
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+        
+        // フィルターを適用する関数
+        function applyFilter(filter) {
+            const filteredImage = document.getElementById('filteredImage');
+            filteredImage.style.filter = filter;
+        }
+        
+        // 画像アップロードの処理
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    document.getElementById('originalImage').src = event.target.result;
+                    document.getElementById('filteredImage').src = event.target.result;
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+<!--
+
+・blur(px)
+ガウシアンブラー
+ガウス関数によって、重みづけをしたピクセルを周辺からブレンドする。
+縦、横の計算(によってボカす効果)が独立している。
+※10px指定の場合、計算は10x10ではなく、10+10で完了する。
+
+・grayscale
+白黒にする →　RGBを平均化する
+(R+G+B)/3 = Gray　🔺
+R * 0.299 + G * 0.587 + B * 0.114 = Gray
+
+・invert
+iR = 1.0 - R
+iG = 1.0 - G
+iB = 1.0 - B
+
+・opacity(transparent)
+計算式：線形補間(Linear Interpolation / Lerp)
+下地の色：Destination(Dst)
+画像の色：Source(Src)
+RGB = Src.RGB * Src.A + Dst.RGB * (1 - Src.A)
+
+RGB -> HSV
+
+
+-->
