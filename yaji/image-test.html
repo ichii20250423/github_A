@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>画像テスト</title>
+    <style media="screen">
+      .filter-list {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+      }
+      .image-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .image-card {
+        position: relative;
+        max-width: 370px;
+        text-align: center;
+        border: 1px solid #0004;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        max-width: 400px;
+      }
+
+      .blur {
+        filter: blur(5px);
+      }
+      .blur-20 {
+        filter: blur(20px);
+      }
+      .blur-40 {
+        filter: blur(40px);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="./index.html">&lt;</a>
+    <h1>フィルター一覧</h1>
+    <div class="filter-list">
+      <div class="filter">
+        <h2>オリジナル</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" class="original" alt="Tree-lined country path covered with fallen autumn leaves, sunlight streaming through yellow and green foliage, rustic wooden fence on the left, peaceful and inviting atmosphere" />
+            <p>オリジナル画像</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>ぼかし</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" class="blur" alt="Blured Tree-lined country path covered with fallen autumn leaves, sunlight streaming through yellow and green foliage, rustic wooden fence on the left, peaceful and inviting atmosphere" />
+            <p>ぼかし: blur(5px)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" class="blur-20" alt="Blured Tree-lined country path covered with fallen autumn leaves, sunlight streaming through yellow and green foliage, rustic wooden fence on the left, peaceful and inviting atmosphere" />
+            <p>ぼかし: blur(20px)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" class="blur-40" alt="Blured Tree-lined country path covered with fallen autumn leaves, sunlight streaming through yellow and green foliage, rustic wooden fence on the left, peaceful and inviting atmosphere" />
+            <p>ぼかし: blur(40px)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>明るさ</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: brightness(0.5)" alt="Brightness 0.5" />
+            <p>明るさ: brightness(0.5)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: brightness(1)" alt="Brightness 1" />
+            <p>明るさ: brightness(1)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: brightness(1.5)" alt="Brightness 1.5" />
+            <p>明るさ: brightness(1.5)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: brightness(2)" alt="Brightness 2" />
+            <p>明るさ: brightness(2)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>コントラスト</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: contrast(0.5)" alt="Contrast 0.5" />
+            <p>コントラスト: contrast(0.5)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: contrast(1)" alt="Contrast 1" />
+            <p>コントラスト: contrast(1)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: contrast(2)" alt="Contrast 2" />
+            <p>コントラスト: contrast(2)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: contrast(4)" alt="Contrast 4" />
+            <p>コントラスト: contrast(4)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>ドロップシャドウ</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: drop-shadow(8px 8px 10px gray)" alt="Drop shadow" />
+            <p>ドロップシャドウ: drop-shadow(8px 8px 10px gray)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: drop-shadow(0 0 20px blue)" alt="Drop shadow blue" />
+            <p>ドロップシャドウ: drop-shadow(0 0 20px blue)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: drop-shadow(-10px 10px 5px red)" alt="Drop shadow red" />
+            <p>ドロップシャドウ: drop-shadow(-10px 10px 5px red)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>グレースケール</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: grayscale(0.3)" alt="Grayscale 0.3" />
+            <p>グレースケール: grayscale(0.3)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: grayscale(0.7)" alt="Grayscale 0.7" />
+            <p>グレースケール: grayscale(0.7)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: grayscale(1)" alt="Grayscale 1" />
+            <p>グレースケール: grayscale(1)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>色相回転</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: hue-rotate(45deg)" alt="Hue rotate 45deg" />
+            <p>色相回転: hue-rotate(45deg)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: hue-rotate(90deg)" alt="Hue rotate 90deg" />
+            <p>色相回転: hue-rotate(90deg)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: hue-rotate(180deg)" alt="Hue rotate 180deg" />
+            <p>色相回転: hue-rotate(180deg)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: hue-rotate(270deg)" alt="Hue rotate 270deg" />
+            <p>色相回転: hue-rotate(270deg)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>反転</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: invert(0.3)" alt="Invert 0.3" />
+            <p>反転: invert(0.3)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: invert(0.7)" alt="Invert 0.7" />
+            <p>反転: invert(0.7)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: invert(1)" alt="Invert 1" />
+            <p>反転: invert(1)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>不透明度</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: opacity(0.3)" alt="Opacity 0.3" />
+            <p>不透明度: opacity(0.3)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: opacity(0.6)" alt="Opacity 0.6" />
+            <p>不透明度: opacity(0.6)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: opacity(0.9)" alt="Opacity 0.9" />
+            <p>不透明度: opacity(0.9)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>彩度</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: saturate(0.5)" alt="Saturate 0.5" />
+            <p>彩度: saturate(0.5)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: saturate(2)" alt="Saturate 2" />
+            <p>彩度: saturate(2)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: saturate(8)" alt="Saturate 8" />
+            <p>彩度: saturate(8)</p>
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <h2>セピア</h2>
+        <div class="image-container">
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: sepia(0.3)" alt="Sepia 0.3" />
+            <p>セピア: sepia(0.3)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: sepia(0.7)" alt="Sepia 0.7" />
+            <p>セピア: sepia(0.7)</p>
+          </div>
+          <div class="image-card">
+            <img src="./images/test_bg.png" style="filter: sepia(1)" alt="Sepia 1" />
+            <p>セピア: sepia(1)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
